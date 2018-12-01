@@ -28,6 +28,20 @@ than it could have been were:
   `Enum.reduce_while` to continually iterate over the operations via
   `Stream.cycle` until the repeat is found. That's really cool.
 
-Another thing I learned about was how to use "escript" to build a
-self-contained command line script in order to run my solution code over the
-input file. That will be something that probably comes in handy in the future.
+Other things I learned:
+
+* how to use "escript" to build a self-contained command line script in order to
+  run my solution code over the input file. That will be something that probably
+  comes in handy in the future.
+
+* Even though I didn't need the guaranteed uniqueness of a MapSet structure to
+  hold the previously-seen result and detect duplication (since the program
+  would return the first duplication it detected, a plain List would never have
+  duplication anyway) it still has an advantage in terms of the speed of finding
+  an existing element in the collection, because it's implementation makes it a
+  `O(log n)` operation (a list would be `O(n)`).
+
+* This one makes me feel pretty dumb: remember to check your commit contents
+  thoroughly. Apparently I had added the entire lib dir for the app modules into
+  .gitignore while trying to just ignore the escript binary. So much for
+  tracking the changes to Day 1. :-/
