@@ -1,11 +1,11 @@
 defmodule AdventOfCode2018.FrequencyShiftCalculator do
   def calibrate([]), do: {:ok, 0}
 
-  def calibrate(operations, reporter \\ fn _ -> nil end) do
+  def calibrate(operations) do
     operations
     |> parse
     |> check_for_never_ending_list
-    |> perform_calibration(reporter)
+    |> perform_calibration
   end
 
   defp all_the_same_type?(operations) do
@@ -16,13 +16,13 @@ defmodule AdventOfCode2018.FrequencyShiftCalculator do
   def is_positive?(n), do: n >= 0
   def is_negative?(n), do: !is_positive?(n)
 
-  defp perform_calibration({:ok, operations}, reporter) do
+  defp perform_calibration({:ok, operations}) do
     result = operations
     |> Stream.cycle
-    |> reduce_until_duplicate_found(reporter)
+    |> reduce_until_duplicate_found
     {:ok, result}
   end
-  defp perform_calibration(result, _reporter), do: result
+  defp perform_calibration(result), do: result
 
   defp parse(operations) do
     result = Enum.map(operations, fn operation ->
@@ -41,10 +41,9 @@ defmodule AdventOfCode2018.FrequencyShiftCalculator do
     end
   end
 
-  defp reduce_until_duplicate_found(operations, reporter) do
+  defp reduce_until_duplicate_found(operations) do
     Enum.reduce_while(operations, {0, MapSet.new}, fn change, {current, seen} ->
       result = current + change
-      reporter.(result)
       if Enum.member?(seen, result) do
         {:halt, result}
       else
