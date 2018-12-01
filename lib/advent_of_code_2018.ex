@@ -4,7 +4,6 @@ defmodule AdventOfCode2018 do
   def calibrate(frequency_shift_file) do
     frequency_shift_file
     |> File.stream!
-    |> Enum.into([])
     |> FrequencyShiftCalculator.calibrate
   end
 end
